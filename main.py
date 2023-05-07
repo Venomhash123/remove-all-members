@@ -14,7 +14,7 @@ from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, Message
 app_id = int(os.environ.get("API_ID", 12345))
 app_key = os.environ.get('API_HASH')
 token = os.environ.get('BOT_TOKEN')
-
+channel_id = os.environ.get("CHANNEL_ID")
 app = Client("remove", app_id, app_key, bot_token=token)
 
 
@@ -27,7 +27,7 @@ PRIVATE = '''Hi, I'm a robot to help you remove all users from your group.
 Now add me to a group and don't forget to give me the permissions.
 Then send /kick in the group and I will start my work.'''
 
-@app.on_message(filters.group & filters.command("kick"))
+@app.on_message(filters.private & filters.command("kick"))
 def main(_, msg: Message):
     chat = msg.chat
     me = chat.get_member(app.get_me().id)
@@ -46,9 +46,9 @@ def main(_, msg: Message):
         msg.reply(ADMIN_NEEDED)
 
 
-@app.on_message(filters.group & filters.service, group=2)
-def service(c, m):
-    m.delete()
+# @app.on_message(filters.group & filters.service, group=2)
+# def service(c, m):
+#     m.delete()
 
 
 @app.on_message(filters.private)
