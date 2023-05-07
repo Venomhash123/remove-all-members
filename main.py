@@ -27,7 +27,7 @@ PRIVATE = '''Hi, I'm a robot to help you remove all users from your group.
 Now add me to a group and don't forget to give me the permissions.
 Then send /kick in the group and I will start my work.'''
 
-@app.on_message(filters.private & filters.command("kick"))
+@app.on_message(filters.group & filters.command("kick"))
 def main(_, msg: Message):
     chat = msg.chat
     me = chat.get_member(app.get_me().id)
